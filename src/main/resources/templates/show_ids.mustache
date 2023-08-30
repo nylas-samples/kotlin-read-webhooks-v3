@@ -1,0 +1,31 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Webhooks</title>
+</head>
+<body>
+<div class="bg-green-600 border-green-600 border-b p-4 m-4 rounded w-2/5 grid place-items-center">
+    <br>
+    <table style="width:100%">
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Participants</th>
+            <th>Status</th>
+        </tr>
+    {{#webhooks}}
+        <tr>
+            <td><p class="font-semibold">{{id}}</p></td>
+            <td><p class="font-semibold">{{date}}</p></td>
+            <td><p class="font-semibold">{{title}}</p></td>
+            <td><p class="font-semibold">{{description}}</p></td>
+            <td><p class="font-semibold">{{participants}}</p></td>
+            <td><p class="font-semibold">{{status}}</p></td>
+        </tr>
+    {{/webhooks}}
+    </table>
+</div>
+</body>
+</html>

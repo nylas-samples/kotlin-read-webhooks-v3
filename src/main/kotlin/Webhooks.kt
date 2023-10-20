@@ -65,8 +65,7 @@ fun main(args: Array<String>) {
     val http: Http = ignite()
     // Initialize Nylas client
     val nylas: NylasClient = NylasClient(
-        apiKey = System.getenv("V3_TOKEN"),
-        apiUri = System.getenv("BASE_URL"),
+        apiKey = System.getenv("V3_TOKEN")
     )
 
     http.get("/webhook") {

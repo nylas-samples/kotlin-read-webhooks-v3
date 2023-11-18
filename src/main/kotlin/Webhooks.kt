@@ -79,27 +79,31 @@ fun main(args: Array<String>) {
             if(Hmac.digest(request.body(), URLEncoder.encode(System.getenv("CLIENT_SECRET"), "UTF-8")) == request.headers("X-Nylas-Signature").toString()){
                 val eventquery = FindEventQueryParams(System.getenv("CALENDAR_ID"))
                 System.out.println(model["data"]["object"]["id"].textValue())
-                //val myevent = nylas.events().find(System.getenv("GRANT_ID"), eventId = model["data"]["object"]["id"].textValue(), queryParams = eventquery)
-                //var participants: String = ""
-                //for (participant in myevent.data.participants){
-                //    participants = "$participants;${participant.email.toString()}"
-                //}
-                //var event_datetime: String = ""
-                //when(myevent.data.getWhen().getObject().toString()) {
-                //    "DATESPAN" -> {
-                //        val datespan = myevent.data.getWhen() as When.Datespan
-                //        event_datetime = datespan.startDate.toString()
-                //    }
-                //    "TIMESPAN" -> {
-                //        val timespan = myevent.data.getWhen() as When.Timespan
-                //        val startDate = dateFormatter(timespan.startTime.toString())
-                //        val endDate = dateFormatter(timespan.endTime.toString())
-                //        event_datetime = "From $startDate to $endDate"
-                //    }
-                //}
-                //participants = participants.drop(1)
-                //array = addElement(array, Webhook_Info(myevent.data.id, event_datetime.toString(), myevent.data.title.toString(),
-                //    myevent.data.description.toString(), participants, myevent.data.status.toString()))
+                val myevent = nylas.events().find(System.getenv("GRANT_ID"), eventId = model["data"]["object"]["id"].textValue(), queryParams = eventquery)
+                var participants: String = ""
+                for (participant in myevent.data.participants){
+                    participants = "$participants;${participant.email.toString()}"
+                }
+                var event_datetime: String = ""
+                when(myevent.data.getWhen().getObject().toString()) {
+                    "DATESPAN" -> {
+                        val datespan = myevent.data.getWhen() as When.Datespan
+                        event_datetime = datespan.startDate.toString()
+                    }
+                    "TIMESPAN" -> {
+                        val timespan = myevent.data.getWhen() as When.Timespan
+                        val startDate = dateFormatter(timespan.startTime.toString())
+                        val endDate = dateFormatter(timespan.endTime.toString())
+                        event_datetime = "From $startDate to $endDate"
+                    }
+                    "DATE" -> {
+                        val datespan = event.getWhen() as When.Date
+                        event_datetime = datespan.date
+                    }
+                }
+                participants = participants.drop(1)
+                array = addElement(array, Webhook_Info(myevent.data.id, event_datetime.toString(), myevent.data.title.toString(),
+                                   myevent.data.description.toString(), participants, myevent.data.status.toString()))
             }
         }
         ""

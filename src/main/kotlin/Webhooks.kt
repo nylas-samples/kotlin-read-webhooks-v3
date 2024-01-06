@@ -97,7 +97,7 @@ fun main(args: Array<String>) {
                         event_datetime = "From $startDate to $endDate"
                     }
                     "DATE" -> {
-                        val datespan = event.getWhen() as When.Date
+                        val datespan = myevent.data.getWhen() as When.Date
                         event_datetime = datespan.date
                     }
                 }

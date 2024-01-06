@@ -68,11 +68,11 @@ fun main(args: Array<String>) {
         apiKey = System.getenv("V3_TOKEN")
     )
 
-    http.get("/webhook") {
+    http.get("/webhooks") {
         request.queryParams("challenge")
     }
 
-    http.post("/webhook") {
+    http.post("/webhooks") {
         val mapper = jacksonObjectMapper()
         val model: JsonNode = mapper.readValue<JsonNode>(request.body())
         if(model["data"]["object"]["calendar_id"].textValue().equals(System.getenv("CALENDAR_ID"), false)){

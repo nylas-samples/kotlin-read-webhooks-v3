@@ -110,11 +110,6 @@ fun main(args: Array<String>) {
         ""
     }
 
-   http.post("/webhooks") {
-        print("Hello from Webhooks")
-        ""
-    }
-
     http.get("/") {
         val model = HashMap<String, Any>()
         model["webhooks"] = array

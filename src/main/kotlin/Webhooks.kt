@@ -73,6 +73,7 @@ fun main(args: Array<String>) {
     }
 
     http.post("/webhook") {
+        print("Hello from Webhook")
         val mapper = jacksonObjectMapper()
         val model: JsonNode = mapper.readValue<JsonNode>(request.body())
         if(model["data"]["object"]["calendar_id"].textValue().equals(System.getenv("CALENDAR_ID"), false)){
@@ -106,6 +107,11 @@ fun main(args: Array<String>) {
                                    myevent.data.description.toString(), participants, myevent.data.status.toString()))
             }
         }
+        ""
+    }
+
+   http.post("/webhooks") {
+        print("Hello from Webhooks")
         ""
     }
 
